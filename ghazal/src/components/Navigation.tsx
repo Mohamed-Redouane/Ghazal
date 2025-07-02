@@ -14,7 +14,7 @@ const Navigation = () => {
 
       // Detect if we're over a light section
       const sections = document.querySelectorAll('section, div[id]');
-      let currentSection = null;
+      let currentSection: Element | null = null;
 
       sections.forEach((section) => {
         const rect = section.getBoundingClientRect();

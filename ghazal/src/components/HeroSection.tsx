@@ -54,7 +54,7 @@ const HeroSection = () => {
       img.onload = () => {
         setLoadedSlides(prev => new Set(prev).add(index));
       };
-      img.src = slide.image;
+      img.src = slide.image!;
     } else {
       setLoadedSlides(prev => new Set(prev).add(index));
     }
@@ -226,7 +226,7 @@ const HeroSection = () => {
         {slides.map((slide, index) => (
           <div
             key={slide.id}
-            ref={el => slideRefs.current[index] = el}
+            ref={el => { slideRefs.current[index] = el; }}
             className={`absolute inset-0 flex items-center transition-all duration-700 ease-in-out ${
               index === currentSlide 
                 ? 'opacity-100 translate-x-0 scale-100' 

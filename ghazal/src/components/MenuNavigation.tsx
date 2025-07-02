@@ -26,7 +26,12 @@ const MenuNavigation = memo(({
   }, [onCategoryChange]);
 
   const handleCategoryHover = useCallback((categoryId: string) => {
-    preloadCategoryImages(menuItems[categoryId] || []);
+    // Use type assertion to ensure categoryId is a key of menuItems
+    if (categoryId in menuItems) {
+      preloadCategoryImages([...(menuItems[categoryId as keyof typeof menuItems] || [])]);
+    } else {
+      preloadCategoryImages([]);
+    }
   }, []);
 
   return (

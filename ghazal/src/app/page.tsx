@@ -1,5 +1,4 @@
 import Footer from "@/components/Footer";
-import Image from "next/image";
 import SocialSection from "@/components/SocialSection";
 import Navigation from "@/components/Navigation";
 import AboutSection from "@/components/AboutSection";

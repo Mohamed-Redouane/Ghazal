@@ -6,6 +6,10 @@ export const preloadImages = (src: string) => {
   img.src = src;
 };
 
-export const preloadCategoryImages = (categoryItems: any[]) => {
+interface CategoryItem {
+  image: string;
+}
+
+export const preloadCategoryImages = (categoryItems: CategoryItem[]) => {
   categoryItems.forEach(item => preloadImages(item.image));
 };
