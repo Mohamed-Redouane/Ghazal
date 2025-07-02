@@ -11,9 +11,9 @@ const HeroSection = () => {
   const [loadedSlides, setLoadedSlides] = useState<Set<number>>(new Set([0]));
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>();
-  const autoPlayTimerRef = useRef<NodeJS.Timeout>();
-  const pauseTimerRef = useRef<NodeJS.Timeout>();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const autoPlayTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const pauseTimerRef = useRef<NodeJS.Timeout | null>(null);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const slides = [
