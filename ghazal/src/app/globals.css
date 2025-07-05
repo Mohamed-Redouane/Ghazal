@@ -288,11 +288,6 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Optimized Smooth Scrolling */
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 100px;
-}
 
 
 
@@ -303,22 +298,31 @@ html {
 
 
 
-/* Custom Scrollbar - Simplified */
+/* Replace the existing scrollbar styles with this */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: oklch(var(--sage));
+  background: var(--sage); /* Use your sage color variable directly */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: oklch(var(--gold));
-  border-radius: 3px;
+  background: var(--gold); /* Use your gold color variable directly */
+  border-radius: 4px;
+  border: 1px solid var(--gold-dark); /* Add subtle border */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: oklch(var(--teal));
+  background: var(--gold-light); /* Lighten on hover */
+}
+
+/* For Firefox support */
+html {
+  scrollbar-color: var(--gold) var(--sage);
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
 }
 
 /* Performance optimizations */
