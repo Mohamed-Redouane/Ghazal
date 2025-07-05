@@ -1,10 +1,11 @@
 "use client"
 
-import { Instagram, Heart, Users, Camera } from "lucide-react"
-import { useEffect, useState, useRef } from "react"
+import { Instagram, Heart, Users, Camera, Play } from "lucide-react"
+import { useEffect, useState, useRef, useCallback } from "react"
 
 const SocialSection = () => {
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set())
+  const [playingTikToks, setPlayingTikToks] = useState<Set<string>>(new Set())
   const instagramRef = useRef<HTMLDivElement>(null)
   const tiktokRef = useRef<HTMLDivElement>(null)
 
@@ -22,7 +23,7 @@ const SocialSection = () => {
       handle: "@ghazal.restaurant_",
       url: "https://www.instagram.com/ghazal.restaurant_/",
       gradient: "from-purple-500 via-pink-500 to-orange-400",
-      followers: "12.5K",
+      followers: "240",
     },
     {
       icon: TikTokIcon,
@@ -30,7 +31,7 @@ const SocialSection = () => {
       handle: "@GhazalRestaurant",
       url: "https://www.tiktok.com/@ghazalresto",
       gradient: "from-black to-gray-800",
-      followers: "42.8K",
+      followers: "41.6K",
     },
   ]
 
@@ -53,15 +54,11 @@ const SocialSection = () => {
       },
     )
 
-    const instaNode = instagramRef.current
-    const tiktokNode = tiktokRef.current
-
-    if (instaNode) observer.observe(instaNode)
-    if (tiktokNode) observer.observe(tiktokNode)
+    const refs = [instagramRef.current, tiktokRef.current].filter(Boolean)
+    refs.forEach(ref => observer.observe(ref))
 
     return () => {
-      if (instaNode) observer.unobserve(instaNode)
-      if (tiktokNode) observer.unobserve(tiktokNode)
+      refs.forEach(ref => observer.unobserve(ref))
       observer.disconnect()
     }
   }, [])
@@ -79,6 +76,11 @@ const SocialSection = () => {
       document.body.appendChild(script)
     }
   }, [visibleSections])
+
+  // Handle TikTok load on user interaction
+  const handleTikTokLoad = useCallback((postId: string) => {
+    setPlayingTikToks(prev => new Set(prev).add(postId))
+  }, [])
 
   // Instagram posts data
   const instagramPosts = [
@@ -211,7 +213,7 @@ const SocialSection = () => {
             </p>
           </div>
 
-          {/* Instagram Posts Grid - Made bigger and responsive */}
+          {/* Instagram Posts Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {instagramPosts.map((post) => (
               <div
@@ -286,17 +288,32 @@ const SocialSection = () => {
                 className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 group aspect-[9/16] min-h-[300px]"
               >
                 {visibleSections.has("tiktok") ? (
-                  <iframe
-                    src={post.embedUrl}
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    scrolling="no"
-                    allow="encrypted-media"
-                    className="border-0 rounded-2xl w-full h-full"
-                    title={`TikTok video ${post.id}`}
-                    loading="lazy"
-                  />
+                  playingTikToks.has(post.id) ? (
+                    <iframe
+                      src={`${post.embedUrl}?autoplay=1`}
+                      width="100%"
+                      height="100%"
+                      frameBorder="0"
+                      scrolling="no"
+                      allow="encrypted-media; autoplay"
+                      className="border-0 rounded-2xl w-full h-full"
+                      title={`TikTok video ${post.id}`}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div 
+                      className="w-full h-full bg-gradient-to-br from-gray-900 to-black rounded-2xl flex items-center justify-center cursor-pointer hover:from-gray-800 hover:to-gray-900 transition-all duration-300 group"
+                      onClick={() => handleTikTokLoad(post.id)}
+                    >
+                      <div className="text-center p-6">
+                        <div className="bg-white/10 backdrop-blur-sm rounded-full p-4 mb-4 group-hover:bg-white/20 transition-all duration-300 group-hover:scale-110">
+                          <Play className="w-12 h-12 text-white ml-1" fill="currentColor" />
+                        </div>
+                        <h4 className="text-white font-semibold text-lg mb-2">Vidéo TikTok</h4>
+                        <p className="text-gray-300 text-sm">Cliquez pour charger et lire</p>
+                      </div>
+                    </div>
+                  )
                 ) : (
                   <div className="w-full h-full bg-gray-100 rounded-2xl flex items-center justify-center">
                     <div className="text-center p-4">
