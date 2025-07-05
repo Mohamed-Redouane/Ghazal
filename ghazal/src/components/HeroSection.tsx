@@ -744,7 +744,7 @@ const HeroSection = () => {
       <div
         className="absolute left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3 z-10 bg-black/30 backdrop-blur-sm rounded-full px-3 py-2 sm:px-4 sm:py-3"
         style={{
-          bottom: "0.75rem", // Very close to the bottom edge - 12px from bottom
+          bottom: "0.40rem", // Very close to the bottom edge - 12px from bottom
         }}
       >
         {slides.map((_, index) => (
