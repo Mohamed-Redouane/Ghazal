@@ -54,7 +54,7 @@ const SocialSection = () => {
       },
     )
 
-    const refs = [instagramRef.current, tiktokRef.current].filter(Boolean)
+    const refs = [instagramRef.current, tiktokRef.current].filter(Boolean) as Element[]
     refs.forEach(ref => observer.observe(ref))
 
     return () => {
