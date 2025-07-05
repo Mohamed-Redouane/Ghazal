@@ -85,29 +85,29 @@ export const menuItems = {
   ],
   [CATEGORY_IDS.TACOS]: [
     {
-      name: "Wrap Mushroom Supreme",
-      description: "Morceaux de poulet grillé, champignons sautés, fromage fondu et sauce crémeuse",
+      name: "Tacos Poulet",
+      description: "Poulet grillé aux epices et herbes, accompagné de frites et de sauce fromagère et algérienne",
       price: "$24",
       image: "/Tacos.avif",
       category: ITEM_CATEGORIES.SPECIALITE
     },
     {
-      name: "Wrap Beef Royale",
-      description: "Émincé de bœuf grillé, fromage cheddar fondu, oignons caramélisés et sauce barbecue",
+      name: "Tacos Viande",
+      description: "Viande hachée grillée aux épices et herbes, accompagnée de frites et de sauce fromagère et algérienne",
       price: "$27",
       image: "/Tacos-merguez.avif",
       category: ITEM_CATEGORIES.VIANDE
     },
     {
-      name: "Taco de Bœuf Épicé",
-      description: "Tortilla de maïs, bœuf haché épicé, fromage cheddar et guacamole",
+      name: "Tacos Merguez",
+      description: "Merguez grillée aux épices et herbes, accompagnée de frites et de sauce fromagère et algérienne",
       price: "$22",
       image: "/Tacos-viande.avif",
       category: ITEM_CATEGORIES.VIANDE
     },
     {
       name: "Tacos XL",
-      description: "Tortilla géante garnie de viande hachée, fromage fondu, frites et sauce spéciale",
+      description: "Tacos en grand format, extra large, avec votre choix de viande (poulet, viande hachée, merguez), frites et sauce fromagère et algérienne",
       price: "$30",
       image: "/XL.avif",
       category: ITEM_CATEGORIES.SIGNATURE
@@ -122,7 +122,7 @@ export const menuItems = {
       category: ITEM_CATEGORIES.CLASSIQUE
     },
     {
-      name: "Burger BBQ Bacon",
+      name: "Burger BBQ",
       description: "Double steak de bœuf, bacon croustillant, fromage fumé, oignons frits et sauce barbecue",
       price: "$24",
       image: "/13.avif",
