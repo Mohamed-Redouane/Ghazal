@@ -1,5 +1,6 @@
 "use client";
 import { memo } from "react";
+import Image from "next/image";
 import { Sparkles } from "lucide-react";
 
 interface MenuItem {
@@ -38,12 +39,13 @@ const MenuCard = memo(({ item, index }: MenuCardProps) => {
       <div className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-12 ${layoutClass}`}>
         {/* Image Container */}
         <div className="relative w-full lg:w-80 xl:w-96 h-64 lg:h-80 flex-shrink-0 overflow-hidden rounded-2xl">
-          <img
+          <Image
             src={item.image}
             alt={item.name}
-            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
-            loading="lazy"
-            decoding="async"
+            fill
+            className="object-cover transition-all duration-700 group-hover:scale-110"
+            sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 320px, 384px"
+            priority={index < 2}
           />
           
           {/* Overlays */}

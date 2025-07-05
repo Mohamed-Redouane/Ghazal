@@ -1,49 +1,23 @@
-"use client";
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+"use client"
+
+import { useState, useEffect } from "react"
+import { Menu, X } from "lucide-react"
+import Image from "next/image"
 
 const Navigation = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isOverLightSection, setIsOverLightSection] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 50);
+      const scrollY = window.scrollY
+      setIsScrolled(scrollY > 50)
+    }
 
-      // Detect if we're over a light section
-      const sections = document.querySelectorAll('section, div[id]');
-      let currentSection: HTMLElement | null = null;
-
-      sections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        const navHeight = 100; // approximate navigation height
-
-        if (rect.top <= navHeight && rect.bottom >= navHeight) {
-          currentSection = section as HTMLElement;
-        }
-      });
-
-      if (currentSection) {
-        const computedStyle = window.getComputedStyle(currentSection);
-        const backgroundColor = computedStyle.backgroundColor;
-        const backgroundImage = computedStyle.backgroundImage;
-
-        const isLight = backgroundColor.includes('rgb(255, 255, 255)') ||
-          backgroundColor.includes('rgb(254, 252, 247)') ||
-          currentSection.classList.contains('bg-cream') ||
-          currentSection.id === 'menu' ||
-          backgroundImage.includes('cream');
-
-        setIsOverLightSection(isLight);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("scroll", handleScroll)
+    handleScroll()
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const menuItems = [
     { label: "Accueil", href: "#home" },
@@ -51,24 +25,15 @@ const Navigation = () => {
     { label: "À propos", href: "#about" },
     { label: "Galerie", href: "#gallery" },
     { label: "Contact", href: "#contact" },
-  ];
+  ]
 
-  // Always return black text for nav items
-  const getTextColor = () => "text-black";
-
-  const getHoverColor = () => {
-    if (isScrolled) {
-      return "hover:text-gold";
-    }
-    return "hover:text-gold";
-  };
+  const getTextColor = () => "text-black"
+  const getHoverColor = () => "hover:text-gold"
 
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? "glass-effect backdrop-blur-2xl border-b border-border/20 shadow-premium"
-          : "bg-transparent"
+        isScrolled ? "glass-effect backdrop-blur-2xl border-b border-border/20 shadow-premium" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4">
@@ -76,10 +41,13 @@ const Navigation = () => {
           {/* Logo */}
           <div className="flex items-center group">
             <div className="relative">
-              <img 
-                src="/9725a374-555e-4788-9fbc-8725ebb59068.png" 
-                alt="Ghazal Restaurant Logo" 
+              <Image
+                src="/9725a374-555e-4788-9fbc-8725ebb59068.png"
+                alt="Ghazal Restaurant Logo"
+                width={80}
+                height={80}
                 className="h-16 lg:h-20 w-auto transition-all duration-300 group-hover:scale-105 drop-shadow-2xl"
+                priority
               />
               <div className="absolute inset-0 bg-gold/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500 -z-10"></div>
             </div>
@@ -104,7 +72,7 @@ const Navigation = () => {
           {/* Mobile Menu Button with Enhanced Style */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`lg:hidden p-3 ${getTextColor()} ${getHoverColor()} transition-all duration-300 rounded-xl ${isScrolled ? 'glass-effect' : ''}`}
+            className={`lg:hidden p-3 ${getTextColor()} ${getHoverColor()} transition-all duration-300 rounded-xl ${isScrolled ? "glass-effect" : ""}`}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -130,7 +98,7 @@ const Navigation = () => {
         )}
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navigation;
+export default Navigation

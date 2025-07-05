@@ -149,7 +149,7 @@ const SocialSection = () => {
           ></div>
 
           <p className="text-xl text-slate-600 font-body font-light max-w-3xl mx-auto leading-relaxed">
-            Découvrez l'univers culinaire de Ghazal à travers nos réseaux sociaux. Plats signature, coulisses de cuisine
+            Découvrez l&apos;univers culinaire de Ghazal à travers nos réseaux sociaux. Plats signature, coulisses de cuisine
             et moments gourmands vous attendent !
           </p>
         </div>
@@ -207,7 +207,7 @@ const SocialSection = () => {
               <div className="w-12 h-px bg-emerald-500"></div>
             </div>
             <p className="text-slate-600 font-body max-w-2xl mx-auto">
-              Plongez dans l'univers visuel de Ghazal Restaurant et laissez-vous inspirer par nos plats d'exception
+              Plongez dans l&apos;univers visuel de Ghazal Restaurant et laissez-vous inspirer par nos plats d&apos;exception
             </p>
           </div>
 
@@ -247,7 +247,7 @@ const SocialSection = () => {
             <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-emerald-200/50 shadow-lg max-w-md mx-auto">
               <h4 className="text-xl font-display font-semibold text-slate-800 mb-4">Plus de contenu gourmand !</h4>
               <p className="text-slate-600 font-body mb-6 text-sm">
-                Découvrez toutes nos créations culinaires et l'ambiance unique de notre restaurant
+                Découvrez toutes nos créations culinaires et l&apos;ambiance unique de notre restaurant
               </p>
               <a
                 href="https://www.instagram.com/ghazal.restaurant_/"

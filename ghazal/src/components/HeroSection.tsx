@@ -1,11 +1,11 @@
 "use client";
 import { ChevronLeft, ChevronRight, Play, Pause, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import Image from "next/image";
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(false);
   const [loadedSlides, setLoadedSlides] = useState<Set<number>>(new Set([0]));
@@ -16,10 +16,11 @@ const HeroSection = () => {
   const pauseTimerRef = useRef<NodeJS.Timeout | null>(null);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const slides = [
+  // Memoize slides array to prevent unnecessary re-renders
+  const slides = useMemo(() => [
     {
       id: 1,
-      type: "image",
+      type: "image" as const,
       image: "/20.avif",
       title: "Le Sandwich Signature",
       subtitle: "Double steak, fromage fondant",
@@ -28,7 +29,7 @@ const HeroSection = () => {
     },
     {
       id: 2,
-      type: "image",
+      type: "image" as const,
       image: "/23.avif",
       title: "Sandwich au pain maison",
       subtitle: "Soucisses grillées authentiques",
@@ -36,13 +37,13 @@ const HeroSection = () => {
     },
     {
       id: 3,
-      type: "video",
+      type: "video" as const,
       video: "/video 2.mov",
       title: "Expérience Ghazal",
       subtitle: "Découvrez notre savoir-faire",
       description: "Plongez dans l'univers authentique de notre restaurant"
     }
-  ];
+  ], []);
 
   // Preload next slide images for better performance
   const preloadSlide = useCallback((index: number) => {
@@ -50,7 +51,7 @@ const HeroSection = () => {
     
     const slide = slides[index];
     if (slide.type === "image") {
-      const img = new Image();
+      const img = new window.Image();
       img.onload = () => {
         setLoadedSlides(prev => new Set(prev).add(index));
       };
@@ -91,9 +92,32 @@ const HeroSection = () => {
     }, 100);
   }, [currentSlide, isTransitioning, handleUserInteraction, preloadSlide, slides.length]);
 
+  // Enhanced video controls
+  const toggleVideoPlayback = useCallback(() => {
+    const video = videoRef.current;
+    if (video) {
+      if (isVideoPlaying) {
+        video.pause();
+      } else {
+        video.play();
+      }
+      setIsVideoPlaying(!isVideoPlaying);
+    }
+    handleUserInteraction();
+  }, [isVideoPlaying, handleUserInteraction]);
+
+  const toggleVideoMute = useCallback(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.muted = !video.muted;
+      setIsVideoMuted(!isVideoMuted);
+    }
+    handleUserInteraction();
+  }, [isVideoMuted, handleUserInteraction]);
+
   // Auto-slide functionality with refined behavior
   useEffect(() => {
-    if (!isAutoPlay || isTransitioning || userPaused) return;
+    if (isTransitioning || userPaused) return;
 
     const currentSlideData = slides[currentSlide];
     
@@ -125,36 +149,13 @@ const HeroSection = () => {
         clearTimeout(autoPlayTimerRef.current);
       }
     };
-  }, [currentSlide, slides.length, isAutoPlay, isTransitioning, userPaused, isVideoPlaying, changeSlide]);
+  }, [currentSlide, slides, isTransitioning, userPaused, isVideoPlaying, changeSlide]);
 
   // Preload initial slides
   useEffect(() => {
     preloadSlide(1);
     preloadSlide(2);
   }, [preloadSlide]);
-
-  // Enhanced video controls
-  const toggleVideoPlayback = () => {
-    const video = videoRef.current;
-    if (video) {
-      if (isVideoPlaying) {
-        video.pause();
-      } else {
-        video.play();
-      }
-      setIsVideoPlaying(!isVideoPlaying);
-    }
-    handleUserInteraction();
-  };
-
-  const toggleVideoMute = () => {
-    const video = videoRef.current;
-    if (video) {
-      video.muted = !video.muted;
-      setIsVideoMuted(!isVideoMuted);
-    }
-    handleUserInteraction();
-  };
 
   // Keyboard navigation
   useEffect(() => {
@@ -179,7 +180,7 @@ const HeroSection = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentSlide, slides, changeSlide]);
+  }, [currentSlide, slides, changeSlide, toggleVideoPlayback]);
 
   // Navigation functions
   const nextSlide = () => changeSlide((currentSlide + 1) % slides.length, true);
@@ -348,15 +349,15 @@ const HeroSection = () => {
 
                     <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6 justify-center lg:justify-start pt-4 animate-reveal-up" style={{ animationDelay: '1.1s' }}>
                       <Button
-  size="lg"
-  className="text-background font-body font-medium px-8 py-4 text-lg rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-2xl"
-  style={{
-    background: "linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light))"
-  }}
-  onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
->
-  Découvrir le menu
-</Button>
+                        size="lg"
+                        className="text-background font-body font-medium px-8 py-4 text-lg rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-2xl"
+                        style={{
+                          background: "linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light))"
+                        }}
+                        onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
+                      >
+                        Découvrir le menu
+                      </Button>
                       
                       <Button
                         variant="outline"
@@ -375,15 +376,19 @@ const HeroSection = () => {
                       {!loadedSlides.has(index) && (
                         <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse rounded-lg"></div>
                       )}
-                      <img
-                        src={slide.image}
-                        alt={slide.title}
-                        className={`w-full h-full object-contain drop-shadow-2xl transform hover:scale-105 transition-all duration-700 max-w-full ${
-                          loadedSlides.has(index) ? 'opacity-100' : 'opacity-0'
-                        }`}
-                        loading={index === 0 ? "eager" : "lazy"}
-                        onLoad={() => setLoadedSlides(prev => new Set(prev).add(index))}
-                      />
+                      <div className="relative w-full h-full">
+                        <Image
+                          src={slide.image}
+                          alt={slide.title}
+                          fill
+                          className={`object-contain drop-shadow-2xl transform hover:scale-105 transition-all duration-700 ${
+                            loadedSlides.has(index) ? 'opacity-100' : 'opacity-0'
+                          }`}
+                          priority={index === 0}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          onLoad={() => setLoadedSlides(prev => new Set(prev).add(index))}
+                        />
+                      </div>
                       
                       {/* Enhanced decorative elements */}
                       <div className="absolute -top-4 sm:-top-8 lg:-top-12 -right-4 sm:-right-8 lg:-right-12 w-6 sm:w-12 lg:w-20 xl:w-28 h-6 sm:h-12 lg:h-20 xl:h-28 bg-gold/20 rounded-full blur-lg sm:blur-xl lg:blur-2xl animate-particle-dance"></div>

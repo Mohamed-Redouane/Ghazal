@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import MenuHeader from "./MenuHeader";
 import MenuItem from "./MenuItem";
 import MenuNavigation from "./MenuNavigation";

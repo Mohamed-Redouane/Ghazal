@@ -199,7 +199,7 @@ const GalleryModal = memo(
         {/* Image Info */}
         <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-xl rounded-xl p-4 text-white">
           <h3 className="font-display font-semibold text-lg mb-1">{alt}</h3>
-          <p className="text-sm opacity-80 font-body">Cliquez n'importe où pour fermer</p>
+          <p className="text-sm opacity-80 font-body">Cliquez n&apos;importe où pour fermer</p>
         </div>
       </div>
     </div>
@@ -235,7 +235,7 @@ const GalleryHeader = memo(() => (
     />
 
     <p className="text-xl lg:text-2xl text-slate-600 font-body font-light max-w-4xl mx-auto leading-relaxed">
-      Plongez dans l'univers raffiné de Ghazal Restaurant à travers{" "}
+      Plongez dans l&apos;univers raffiné de Ghazal Restaurant à travers{" "}
       <span className="text-teal-600 font-medium">nos créations culinaires</span> et notre{" "}
       <span className="text-emerald-600 font-medium">ambiance élégante</span>
     </p>

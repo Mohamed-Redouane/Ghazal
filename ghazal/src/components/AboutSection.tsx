@@ -47,16 +47,14 @@ const AboutSection = () => {
               <p className="text-lg lg:text-xl">
                 Bienvenue au Ghazal, un restaurant chaleureux où chaque bouchée est une explosion de saveurs ! Notre
                 spécialité ? Des sandwiches grillés préparés avec amour, utilisant un pain fait maison, croustillant à
-                l'extérieur et moelleux à l'intérieur.
+                l&apos;extérieur et moelleux à l&apos;intérieur.
               </p>
-
               <p className="text-lg lg:text-xl">
                 Choisissez parmi une variété de garnitures savoureuses, allant des viandes grillées aux légumes frais,
                 le tout agrémenté de sauces maison qui rehausseront le goût de chaque sandwich.
               </p>
-
               <p className="text-lg lg:text-xl">
-                Mais ce n'est pas tout ! Notre menu propose également de délicieuses crêpes, que vous préfériez les
+                Mais ce n&apos;est pas tout ! Notre menu propose également de délicieuses crêpes, que vous préfériez les
                 classiques avec des fruits frais et du chocolat ou les croustillantes. Pour accompagner le tout, ne
                 manquez pas nos milkshakes crémeux, préparés avec des ingrédients de qualité.
               </p>
@@ -70,14 +68,12 @@ const AboutSection = () => {
                 </div>
                 <span className="font-display font-semibold text-lg">Pain fait maison</span>
               </div>
-
               <div className="flex items-center space-x-3 text-emerald-700">
                 <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center">
                   <ChefHat className="w-6 h-6 text-white" />
                 </div>
                 <span className="font-display font-semibold text-lg">100% Halal</span>
               </div>
-
               <div className="flex items-center space-x-3 text-emerald-700">
                 <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center">
                   <MapPin className="w-6 h-6 text-white" />
@@ -103,7 +99,6 @@ const AboutSection = () => {
                 className="absolute inset-0 bg-gradient-to-t from-emerald-900/60 via-transparent to-teal-500/20"
                 aria-hidden="true"
               />
-
               {/* Overlay text */}
               <div className="absolute bottom-8 left-8 right-8">
                 <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-6 lg:p-8 border border-white/50 shadow-2xl">
