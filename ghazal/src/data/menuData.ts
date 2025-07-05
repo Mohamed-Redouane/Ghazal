@@ -49,7 +49,7 @@ export const menuItems = {
       name: "Sandwich Classique Poulet",
       description: "Pain maison, filet de poulet grillé, fromage fondu, garniture fraîche et sauce au choix",
       price: "$28",
-      image: "/poulet-com.avif",
+      image: "/Poulet-com.avif",
       category: ITEM_CATEGORIES.CLASSIQUE
     },
     {

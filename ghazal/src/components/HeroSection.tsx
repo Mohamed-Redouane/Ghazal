@@ -46,6 +46,7 @@ const HeroSection = () => {
         description:
           "Pain maison, mixte de viandes (poulet, kefta, merguez), trois fromages, garniture fraîche et sauce au choix",
         slogan: "الأَكْل حلْ لكِلّ مشكِلْ",
+        theme: "sandwich", // Add sandwich theme
       },
       {
         id: 2,
@@ -55,7 +56,7 @@ const HeroSection = () => {
         subtitle: "Fait maison chaque jour",
         description: "Pain croustillant à l'extérieur et moelleux à l'intérieur, préparé avec amour dans nos cuisines",
         slogan: "GHAZAL\nوَٱلطَّعْمُ خَيَالٌ",
-        theme: "bread", // Special theme for enhanced styling
+        theme: "bread", // Keep existing bread theme
       },
       {
         id: 3,
@@ -64,6 +65,7 @@ const HeroSection = () => {
         title: "GHAZAL Croustillante",
         subtitle: "L'art de la crêpe parfaite",
         description: "Crêpes croustillantes garnies avec 5 ingrédients au choix, une explosion de saveurs sucrées",
+        theme: "crepes", // Keep theme but remove slogan
       },
       {
         id: 4,
@@ -73,6 +75,7 @@ const HeroSection = () => {
         subtitle: "Onctueux et rafraîchissants",
         description:
           "Milkshakes crémeux préparés avec des ingrédients de qualité, chantilly généreuse et décoration gourmande",
+        theme: "milkshakes", // Keep theme but remove slogan
       },
       {
         id: 5,
@@ -448,7 +451,7 @@ const HeroSection = () => {
                         </span>
                       </div>
 
-                      {/* Enhanced Arabic Slogan for Bread Slide */}
+                      {/* Enhanced Arabic Slogan with Theme-Specific Styling */}
                       {slide.slogan && (
                         <div className="relative mb-8 animate-reveal-up" style={{ animationDelay: "0.3s" }}>
                           {slide.theme === "bread" ? (
@@ -478,6 +481,121 @@ const HeroSection = () => {
                                 className="absolute top-1/2 -right-8 w-2 h-2 bg-gold/40 rounded-full animate-pulse"
                                 style={{ animationDelay: "0.5s" }}
                               ></div>
+                            </div>
+                          ) : slide.theme === "sandwich" ? (
+                            // Special styling for sandwich slide
+                            <div className="text-center space-y-4">
+                              <div className="relative">
+                                <p
+                                  className="text-gold-premium font-display font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl tracking-wide leading-relaxed animate-text-glow"
+                                  style={{ direction: "rtl", fontFamily: 'Georgia, "Times New Roman", serif' }}
+                                >
+                                  {slide.slogan}
+                                </p>
+                                {/* Sandwich-themed decorative elements */}
+                                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent animate-shimmer-gold"></div>
+                                <div
+                                  className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent animate-shimmer-gold"
+                                  style={{ animationDelay: "0.8s" }}
+                                ></div>
+                                {/* Sandwich-themed corner accents */}
+                                <div className="absolute top-0 -left-6 w-1 h-1 bg-gold/60 rounded-full animate-pulse"></div>
+                                <div
+                                  className="absolute top-0 -right-6 w-1 h-1 bg-gold/60 rounded-full animate-pulse"
+                                  style={{ animationDelay: "0.3s" }}
+                                ></div>
+                                <div
+                                  className="absolute bottom-0 -left-4 w-1 h-1 bg-gold/40 rounded-full animate-pulse"
+                                  style={{ animationDelay: "0.6s" }}
+                                ></div>
+                                <div
+                                  className="absolute bottom-0 -right-4 w-1 h-1 bg-gold/40 rounded-full animate-pulse"
+                                  style={{ animationDelay: "0.9s" }}
+                                ></div>
+                              </div>
+                            </div>
+                          ) : slide.theme === "crepes" ? (
+                            // Special styling for crepes slide
+                            <div className="text-center space-y-4">
+                              <div className="relative">
+                                <p
+                                  className="text-gold-premium font-display font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl tracking-wide leading-relaxed animate-text-glow"
+                                  style={{ direction: "rtl", fontFamily: 'Georgia, "Times New Roman", serif' }}
+                                >
+                                  {slide.slogan}
+                                </p>
+                                {/* Crepes-themed decorative elements - curved lines */}
+                                <div className="absolute -top-5 left-1/2 transform -translate-x-1/2">
+                                  <div className="w-28 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent animate-shimmer-gold transform rotate-2"></div>
+                                </div>
+                                <div
+                                  className="absolute -bottom-5 left-1/2 transform -translate-x-1/2"
+                                  style={{ animationDelay: "0.7s" }}
+                                >
+                                  <div className="w-36 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent animate-shimmer-gold transform -rotate-1"></div>
+                                </div>
+                                {/* Crepes-themed scattered dots */}
+                                <div className="absolute top-1/4 -left-10 w-1.5 h-1.5 bg-gold/50 rounded-full animate-pulse"></div>
+                                <div
+                                  className="absolute top-3/4 -right-10 w-1.5 h-1.5 bg-gold/50 rounded-full animate-pulse"
+                                  style={{ animationDelay: "0.4s" }}
+                                ></div>
+                                <div
+                                  className="absolute top-1/2 -left-12 w-1 h-1 bg-gold/30 rounded-full animate-pulse"
+                                  style={{ animationDelay: "0.8s" }}
+                                ></div>
+                                <div
+                                  className="absolute top-1/3 -right-12 w-1 h-1 bg-gold/30 rounded-full animate-pulse"
+                                  style={{ animationDelay: "1.2s" }}
+                                ></div>
+                              </div>
+                            </div>
+                          ) : slide.theme === "milkshakes" ? (
+                            // Special styling for milkshakes slide
+                            <div className="text-center space-y-4">
+                              <div className="relative">
+                                <p
+                                  className="text-gold-premium font-display font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl tracking-wide leading-relaxed animate-text-glow"
+                                  style={{ direction: "rtl", fontFamily: 'Georgia, "Times New Roman", serif' }}
+                                >
+                                  {slide.slogan}
+                                </p>
+                                {/* Milkshakes-themed decorative elements - wavy lines */}
+                                <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
+                                  <div className="flex space-x-1">
+                                    <div className="w-6 h-px bg-gold/50 animate-pulse transform rotate-12"></div>
+                                    <div className="w-8 h-px bg-gold/60 animate-pulse transform -rotate-6"></div>
+                                    <div className="w-6 h-px bg-gold/50 animate-pulse transform rotate-12"></div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="absolute -bottom-6 left-1/2 transform -translate-x-1/2"
+                                  style={{ animationDelay: "0.6s" }}
+                                >
+                                  <div className="flex space-x-1">
+                                    <div className="w-8 h-px bg-gold/60 animate-pulse transform -rotate-12"></div>
+                                    <div className="w-10 h-px bg-gold/70 animate-pulse transform rotate-6"></div>
+                                    <div className="w-8 h-px bg-gold/60 animate-pulse transform -rotate-12"></div>
+                                  </div>
+                                </div>
+                                {/* Milkshakes-themed bubbles */}
+                                <div
+                                  className="absolute top-0 -left-8 w-2 h-2 bg-gold/40 rounded-full animate-bounce"
+                                  style={{ animationDelay: "0s", animationDuration: "2s" }}
+                                ></div>
+                                <div
+                                  className="absolute top-1/4 -right-6 w-1.5 h-1.5 bg-gold/50 rounded-full animate-bounce"
+                                  style={{ animationDelay: "0.5s", animationDuration: "2.5s" }}
+                                ></div>
+                                <div
+                                  className="absolute bottom-1/4 -left-6 w-1 h-1 bg-gold/30 rounded-full animate-bounce"
+                                  style={{ animationDelay: "1s", animationDuration: "3s" }}
+                                ></div>
+                                <div
+                                  className="absolute bottom-0 -right-8 w-1.5 h-1.5 bg-gold/45 rounded-full animate-bounce"
+                                  style={{ animationDelay: "1.5s", animationDuration: "2.2s" }}
+                                ></div>
+                              </div>
                             </div>
                           ) : (
                             // Regular slogan styling for other slides
@@ -622,12 +740,11 @@ const HeroSection = () => {
         <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 group-hover:scale-110 transition-transform" />
       </button>
 
-      {/* Enhanced Carousel Dots - Better iPhone compatibility */}
+      {/* Enhanced Carousel Dots - Pushed to the very bottom edge */}
       <div
         className="absolute left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3 z-10 bg-black/30 backdrop-blur-sm rounded-full px-3 py-2 sm:px-4 sm:py-3"
         style={{
-          bottom: "max(1.5rem, env(safe-area-inset-bottom, 1.5rem))",
-          marginBottom: "env(safe-area-inset-bottom, 0px)",
+          bottom: "0.75rem", // Very close to the bottom edge - 12px from bottom
         }}
       >
         {slides.map((_, index) => (
