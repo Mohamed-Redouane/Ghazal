@@ -1,15 +1,30 @@
-// lib/imageUtils.ts
+// Image preloading utility
 export const preloadImages = (src: string) => {
-  if (typeof window === 'undefined') return;
-  
-  const img = new Image();
-  img.src = src;
-};
+  if (typeof window === "undefined") return
+
+  const img = new Image()
+  img.src = src
+}
 
 interface CategoryItem {
-  image: string;
+  image: string
 }
 
 export const preloadCategoryImages = (categoryItems: CategoryItem[]) => {
-  categoryItems.forEach(item => preloadImages(item.image));
-};
+  categoryItems.forEach((item) => preloadImages(item.image))
+}
+
+// Add batch preloading function for gallery
+export const preloadImageBatch = (images: string[], priority = false) => {
+  if (typeof window === "undefined") return
+
+  images.forEach((src, index) => {
+    const img = new Image()
+    img.src = src
+
+    // Set loading priority for first few images
+    if (priority && index < 3) {
+      img.loading = "eager" as any
+    }
+  })
+}

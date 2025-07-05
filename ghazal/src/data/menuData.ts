@@ -44,63 +44,73 @@ export const ITEM_CATEGORIES = {
 
 export const menuItems = {
   [CATEGORY_IDS.SANDWICHES]: [
+
     {
-      name: "Wrap Signature Ghazal",
-      description: "Double steak haché de bœuf premium, merguez artisanales, fromage fondu et sauce spéciale",
-      price: "$32",
-      image: "/19.avif",
-      category: ITEM_CATEGORIES.SIGNATURE
-    },
-    {
-      name: "Wrap Merguez Premium",
-      description: "Merguez artisanales grillées, fromage cheddar, crudités fraîches et sauce harissa douce",
-      price: "$24",
-      image: "/20.avif",
-      category: ITEM_CATEGORIES.SPECIALITE
-    },
-    {
-      name: "Wrap Triple Steak",
-      description: "Triple steak haché grillé, fromage cheddar, cornichons croquants et sauce barbecue",
+      name: "Sandwich Classique Poulet",
+      description: "Pain maison, filet de poulet grillé, fromage fondu, garniture fraîche et sauce au choix",
       price: "$28",
-      image: "/21.avif",
+      image: "/poulet-com.avif",
       category: ITEM_CATEGORIES.CLASSIQUE
     },
     {
-      name: "Wrap Poulet Grillé",
-      description: "Blanc de poulet mariné et grillé, fromage fondu, salade croquante et sauce à l'ail",
-      price: "$22",
-      image: "/22.avif",
-      category: ITEM_CATEGORIES.VOLAILLE
+      name: "Sandwich Classique Kefta",
+      description: "Pain maison, kefta épicée grillée, cheddar fondu, garniture fraîche et sauce au choix",
+      price: "$32",
+      image: "/kefta.avif",
+      category: ITEM_CATEGORIES.SIGNATURE
     },
     {
-      name: "Wrap Chicken Deluxe",
-      description: "Escalope de poulet panée croustillante, fromche cheddar, avocat et sauce ranch",
+      name: "Sandwich Classique Merguez",
+      description: "Pain maison, merguez grillée, fromage fondu, garniture fraîche et sauce au choix",
       price: "$26", 
       image: "/23.avif",
       category: ITEM_CATEGORIES.VOLAILLE
-    }
+    },
+   {
+      name: "Sandwich Ghazal",
+      description: "Pain maison, deux viandes au choix (poulet, kefta, merguez), double fromage, garniture fraîche et sauce au choix",
+      price: "$26", 
+      image: "/19.avif",
+      category: ITEM_CATEGORIES.VOLAILLE
+    },
+    {
+      name: "Sandwich Ultra Ghazal",
+      description: "Pain maison, mixte de viandes (poulet, kefta, merguez), trois fromages, garniture fraîche et sauce au choix",
+      price: "$32",
+      image: "/20.avif",
+      category: ITEM_CATEGORIES.SIGNATURE
+    },
+
+    
   ],
   [CATEGORY_IDS.TACOS]: [
     {
       name: "Wrap Mushroom Supreme",
       description: "Morceaux de poulet grillé, champignons sautés, fromage fondu et sauce crémeuse",
       price: "$24",
-      image: "/11.avif",
+      image: "/Tacos.avif",
       category: ITEM_CATEGORIES.SPECIALITE
     },
     {
       name: "Wrap Beef Royale",
       description: "Émincé de bœuf grillé, fromage cheddar fondu, oignons caramélisés et sauce barbecue",
       price: "$27",
-      image: "/12.avif",
+      image: "/Tacos-merguez.avif",
       category: ITEM_CATEGORIES.VIANDE
     },
     {
       name: "Taco de Bœuf Épicé",
       description: "Tortilla de maïs, bœuf haché épicé, fromage cheddar et guacamole",
       price: "$22",
-      image: "/13.avif",
+      image: "/Tacos-viande.avif",
       category: ITEM_CATEGORIES.VIANDE
+    },
+    {
+      name: "Tacos XL",
+      description: "Tortilla géante garnie de viande hachée, fromage fondu, frites et sauce spéciale",
+      price: "$30",
+      image: "/XL.avif",
+      category: ITEM_CATEGORIES.SIGNATURE
     }
   ],
   [CATEGORY_IDS.BURGERS]: [
@@ -141,72 +151,85 @@ export const menuItems = {
     }
   ],
   [CATEGORY_IDS.CREPES]: [
-    {
-      name: "Gâteau au Chocolat Fondant",
-      description: "Gâteau moelleux au chocolat noir, ganache onctueuse et décoration chocolat blanc",
-      price: "$16",
-      image: "/1.avif",
-      category: ITEM_CATEGORIES.CHOCOLAT
-    },
-    {
-      name: "Soufflé au Chocolat",
-      description: "Soufflé léger au chocolat, cœur coulant et poudre de cacao",
-      price: "$18",
-      image: "/2.avif",
-      category: ITEM_CATEGORIES.SIGNATURE
-    },
-    {
-      name: "Tarte aux Fruits Rouges",
-      description: "Pâte sablée, crème pâtissière vanille, fruits rouges frais et glaçage brillant",
-      price: "$14",
-      image: "/3.avif",
-      category: ITEM_CATEGORIES.FRUITS
-    },
-    {
-      name: "Éclair au Chocolat",
-      description: "Pâte à choux dorée, crème pâtissière chocolat et glaçage chocolat brillant",
-      price: "$12",
-      image: "/4.avif",
-      category: ITEM_CATEGORIES.PATISSERIE
-    },
-    {
-      name: "Religieuse Café",
-      description: "Choux garnis de crème au café, glaçage fondant et décoration traditionnelle",
-      price: "$16",
-      image: "/5.avif",
-      category: ITEM_CATEGORIES.PATISSERIE
-    },
-    {
-      name: "Fondant au Chocolat",
-      description: "Moelleux au chocolat noir, cœur coulant et glace vanille",
-      price: "$15",
-      image: "/6.avif",
-      category: ITEM_CATEGORIES.CHOCOLAT
-    },
-    {
-      name: "Tarte Citron Meringuée",
-      description: "Pâte sablée, crème citron acidulée et meringue française dorée",
-      price: "$13",
-      image: "/7.avif",
-      category: ITEM_CATEGORIES.CLASSIQUE
-    },
-    {
-      name: "Crêpes au Chocolat",
-      description: "Crêpes fines garnies de pâte à tartiner chocolat, chantilly et biscuits croquants",
-      price: "$11",
-      image: "/8.avif",
-      category: ITEM_CATEGORIES.CREPES
-    },
-    {
-      name: "Crêpes aux Amandes",
-      description: "Crêpes garnies de crème d'amande, poudre d'amandes et miel",
+     {
+      name: "Croustillante Nutella Chocolat",
+      description: "Crêpes croustillantes garnies de Nutella",
       price: "$12",
       image: "/9.avif",
       category: ITEM_CATEGORIES.CREPES
     },
     {
-      name: "Crêpes Oreo",
-      description: "Crêpes garnies de crème chocolat Oreo, chantilly et éclats de biscuits",
+      name: "Croustillante Fraise",
+      description: "Crêpes croustillantes garnies de fraises fraîches et Nutella",
+      price: "$13",
+      image: "/7.avif",
+      category: ITEM_CATEGORIES.CLASSIQUE
+    },
+      {
+      name: "Croustillante Banane",
+      description: "Crêpes croustillantes garnies de bananes et Nutella",
+      price: "$11",
+      image: "/8.avif",
+      category: ITEM_CATEGORIES.CREPES
+    },
+     {
+      name: "Croustillante Dubai",
+      description: "Servi avec pistaches et kunafa",
+      price: "$16",
+      image: "/1.avif",
+      category: ITEM_CATEGORIES.CHOCOLAT
+    },
+    {
+      name: "Croustillante Fruity",
+      description: "Crêpes croustillantes garnies de fruits 3 choisis et Nutella",
+      price: "$14",
+      image: "/99.avif",
+      category: ITEM_CATEGORIES.FRUITS
+    },
+   
+   
+    {
+      name: "Croustillante Noix",
+      description: "Crêpes croustillantes garnies de amandes, noix de grenoble, pistaches et Nutella",
+      price: "$12",
+      image: "/4.avif",
+      category: ITEM_CATEGORIES.PATISSERIE
+    },
+    {
+      name: " GHAZAL Croustillante",
+      description: "Crêpes croustillantes garnies avec 5 ingrédients au choix",
+      price: "$15",
+      image: "/6.avif",
+      category: ITEM_CATEGORIES.CHOCOLAT
+    },
+    {
+      name: "Croustillante Spéciale Ferrero Rocher",
+      description: "Crêpes croustillantes garnies de Ferrero Rocher et Nutella",
+      price: "$18",
+      image: "/2.avif",
+      category: ITEM_CATEGORIES.SIGNATURE
+    },
+    {
+      name: "Croustillante Speciale KitKat",
+      description: "Crêpes croustillantes garnies de KitKat et Nutella",
+      price: "$14",
+      image: "/3.avif",
+      category: ITEM_CATEGORIES.FRUITS
+    },
+    
+    {
+      name: "Croustillante Spéciale Oreo",
+      description: "Crêpes croustillantes garnies de biscuits Oreo et Nutella",
+      price: "$16",
+      image: "/ORE.avif",
+      category: ITEM_CATEGORIES.PATISSERIE
+    },
+    
+    
+  
+    {
+      name: "Croustillante Spéciale Kinder Bueno",
+      description: "Crêpes croustillantes garnies de Kinder Bueno et Nutella",
       price: "$13",
       image: "/10.avif",
       category: ITEM_CATEGORIES.CREPES
@@ -217,35 +240,42 @@ export const menuItems = {
       name: "Milkshake Fraise",
       description: "Milkshake onctueux à la fraise fraîche, chantilly et sirop de fraise",
       price: "$12",
-      image: "/14.avif",
+      image: "/Remove background project (27).png",
       category: ITEM_CATEGORIES.MILKSHAKE
     },
     {
       name: "Milkshake Chocolat",
       description: "Milkshake au chocolat belge, chantilly généreuse et copeaux de chocolat",
       price: "$12",
-      image: "/15.avif", // Fixed double slash
+      image: "/Remove background project (19).png", 
       category: ITEM_CATEGORIES.MILKSHAKE
     },
     {
       name: "Milkshake Vanille",
       description: "Milkshake à la vanille Madagascar, chantilly et essence de vanille naturelle",
       price: "$11",
-      image: "/16.avif",
+      image: "/Remove background project (17).png",
       category: ITEM_CATEGORIES.MILKSHAKE
     },
     {
       name: "Milkshake Caramel",
       description: "Milkshake au caramel beurre salé, chantilly et éclats de caramel croquant",
       price: "$13",
-      image: "/17.avif",
+      image: "/Remove background project (31).png",
       category: ITEM_CATEGORIES.MILKSHAKE
     },
     {
       name: "Milkshake Oreo",
       description: "Milkshake à la vanille avec biscuits Oreo mixés, chantilly et décoration Oreo",
       price: "$14",
-      image: "/18.avif",
+      image: "/Remove background project (24).png",
+      category: ITEM_CATEGORIES.MILKSHAKE
+    },
+     {
+      name: "Milkshake Oreo",
+      description: "Milkshake à la vanille avec biscuits Oreo mixés, chantilly et décoration Oreo",
+      price: "$14",
+      image: "/Remove background project (32).png",
       category: ITEM_CATEGORIES.MILKSHAKE
     }
   ]

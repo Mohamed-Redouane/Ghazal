@@ -170,11 +170,8 @@ const Footer = () => {
           <div className="flex flex-col lg:flex-row justify-between items-center space-y-6 lg:space-y-0">
             <div className="flex flex-col lg:flex-row items-center space-y-2 lg:space-y-0 lg:space-x-6">
               <p className="text-primary-foreground/60 font-body text-sm">
-                © 2025 Ghazal Restaurant. Tous droits réservés.
+            © 2025 Ghazal Restaurant. Tous droits réservés.
               </p>
-            </div>
-            <div className="flex items-center text-primary-foreground/60 font-body text-sm">
-              <span>Créé par Redouane</span>
             </div>
           </div>
         </div>

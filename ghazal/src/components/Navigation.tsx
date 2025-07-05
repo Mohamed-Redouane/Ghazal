@@ -14,14 +14,14 @@ const Navigation = () => {
 
       // Detect if we're over a light section
       const sections = document.querySelectorAll('section, div[id]');
-      let currentSection: Element | null = null;
+      let currentSection: HTMLElement | null = null;
 
       sections.forEach((section) => {
         const rect = section.getBoundingClientRect();
         const navHeight = 100; // approximate navigation height
 
         if (rect.top <= navHeight && rect.bottom >= navHeight) {
-          currentSection = section;
+          currentSection = section as HTMLElement;
         }
       });
 

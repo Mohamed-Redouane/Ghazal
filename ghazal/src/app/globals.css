@@ -270,14 +270,7 @@
   border: 1px solid rgba(174, 235, 235, 0.2);
 }
 
-.bg-gold-premium {
-  background: linear-gradient(
-    135deg,
-    oklch(var(--gold-dark)) 0%,
-    oklch(var(--gold)) 50%,
-    oklch(var(--gold-light)) 100%
-  );
-}
+
 
 .bg-teal-premium {
   background: linear-gradient(
@@ -301,21 +294,14 @@ html {
   scroll-padding-top: 100px;
 }
 
-/* Performance-optimized Section Transitions */
-section {
-  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
-  will-change: auto;
-}
+
 
 .section-hidden {
   opacity: 0;
   transform: translateY(10px);
 }
 
-.section-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+
 
 /* Custom Scrollbar - Simplified */
 ::-webkit-scrollbar {
@@ -348,16 +334,6 @@ img {
 /* Additional performance improvements */
 .will-change-auto {
   will-change: auto;
-}
-
-/* Reduce paint and layout thrashing */
-section, div {
-  contain: layout style;
-}
-
-/* Optimize transforms */
-.transform {
-  transform: translateZ(0);
 }
 
 /* Premium Shadows */
@@ -497,4 +473,34 @@ section, div {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Toast z-index fixes */
+[data-sonner-toaster] {
+  z-index: 9999 !important;
+}
+
+[data-sonner-toast] {
+  z-index: 9999 !important;
+}
+
+/* Ensure toasts appear above all other elements */
+.sonner-toast {
+  z-index: 9999 !important;
+}
+
+/* Fix for any potential conflicts with your existing styles */
+section {
+  position: relative;
+  z-index: auto;
+}
+
+/* Ensure navigation doesn't interfere */
+nav {
+  z-index: 50;
+}
+
+/* Ensure modals and overlays don't interfere */
+.backdrop-blur-xl {
+  z-index: auto;
 }
