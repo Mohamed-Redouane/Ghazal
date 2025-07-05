@@ -1,14 +1,15 @@
-
-""
-import { MessageCircle, Send } from "lucide-react";
-import Map from "./Map";
-import ContactBackground from "./ContactBackground";
-import ContactInfo from "./ContactInfo";
-import ContactForm from "./ContactForm";
+import { MessageCircle, Send } from "lucide-react"
+import Map from "./Map"
+import ContactBackground from "./ContactBackground"
+import ContactInfo from "./ContactInfo"
+import ContactForm from "./ContactForm"
 
 const ContactSection = () => {
   return (
-    <section id="contact" className="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-900 relative overflow-hidden">
+    <section
+      id="contact"
+      className="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-900 relative overflow-hidden"
+    >
       {/* Background Effects */}
       <ContactBackground />
 
@@ -22,9 +23,7 @@ const ContactSection = () => {
             </h2>
             <Send className="w-8 h-8 text-gold" />
           </div>
-          <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            Une question ? Une réservation ? Nous sommes là pour vous
-          </p>
+          <p className="text-xl text-white/70 max-w-2xl mx-auto">Contactez-nous pour toute question ou information</p>
         </div>
 
         {/* Content - Centered Layout */}
@@ -46,7 +45,7 @@ const ContactSection = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default ContactSection;
+export default ContactSection
