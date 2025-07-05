@@ -70,7 +70,7 @@ const HeroSection = () => {
       {
         id: 4,
         type: "image" as const,
-        image: "/Remove background project (24).png",
+        image: "/N.avif",
         title: "Milkshakes Ghazal",
         subtitle: "Onctueux et rafraîchissants",
         description:

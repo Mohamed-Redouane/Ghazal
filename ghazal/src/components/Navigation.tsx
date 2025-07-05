@@ -42,7 +42,7 @@ const Navigation = () => {
           <div className="flex items-center group">
             <div className="relative">
               <Image
-                src="/9725a374-555e-4788-9fbc-8725ebb59068.png"
+                src="/logo.avif"
                 alt="Ghazal Restaurant Logo"
                 width={80}
                 height={80}
