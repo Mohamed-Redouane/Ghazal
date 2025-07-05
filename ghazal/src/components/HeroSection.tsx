@@ -14,6 +14,7 @@ const HeroSection = () => {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [userPaused, setUserPaused] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [isVideoHovered, setIsVideoHovered] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const autoPlayTimerRef = useRef<NodeJS.Timeout | null>(null)
   const pauseTimerRef = useRef<NodeJS.Timeout | null>(null)
@@ -40,26 +41,47 @@ const HeroSection = () => {
         id: 1,
         type: "image" as const,
         image: "/20.avif",
-        title: "Le Sandwich Signature Ultra Ghazal",
-        subtitle: "Double steak, fromage fondant",
-        description: "Notre création phare avec deux steaks juteux et fromage premium",
+        title: "Sandwich Ultra Ghazal",
+        subtitle: "Mixte de viandes premium",
+        description:
+          "Pain maison, mixte de viandes (poulet, kefta, merguez), trois fromages, garniture fraîche et sauce au choix",
         slogan: "الأَكْل حلْ لكِلّ مشكِلْ",
       },
       {
         id: 2,
         type: "image" as const,
         image: "/23.avif",
-        title: "Sandwich au pain maison",
-        subtitle: "Soucisses grillées authentiques",
-        description: "Sandwich traditionnel avec saucisses grillées dans notre pain fait maison",
+        title: "Notre Pain Artisanal",
+        subtitle: "Fait maison chaque jour",
+        description: "Pain croustillant à l'extérieur et moelleux à l'intérieur, préparé avec amour dans nos cuisines",
+        slogan: "GHAZAL\nوَٱلطَّعْمُ خَيَالٌ",
+        theme: "bread", // Special theme for enhanced styling
       },
       {
         id: 3,
+        type: "image" as const,
+        image: "/6.avif",
+        title: "GHAZAL Croustillante",
+        subtitle: "L'art de la crêpe parfaite",
+        description: "Crêpes croustillantes garnies avec 5 ingrédients au choix, une explosion de saveurs sucrées",
+      },
+      {
+        id: 4,
+        type: "image" as const,
+        image: "/Remove background project (24).png",
+        title: "Milkshakes Ghazal",
+        subtitle: "Onctueux et rafraîchissants",
+        description:
+          "Milkshakes crémeux préparés avec des ingrédients de qualité, chantilly généreuse et décoration gourmande",
+      },
+      {
+        id: 5,
         type: "video" as const,
         video: "/video 2.mov",
-        title: "Expérience Ghazal",
+        title: "L'Expérience Ghazal",
         subtitle: "Découvrez notre savoir-faire",
-        description: "Plongez dans l'univers authentique de notre restaurant",
+        description:
+          "Plongez dans l'univers authentique de notre restaurant où chaque bouchée est une explosion de saveurs",
       },
     ],
     [],
@@ -160,14 +182,33 @@ const HeroSection = () => {
     handleUserInteraction()
   }, [isVideoPlaying, handleUserInteraction, isMobile])
 
-  const toggleVideoMute = useCallback(() => {
+  const toggleVideoMute = useCallback(async () => {
     const video = videoRef.current
-    if (video) {
-      video.muted = !video.muted
-      setIsVideoMuted(!isVideoMuted)
+    if (!video) return
+
+    try {
+      // For mobile, we need to handle unmuting differently
+      if (isMobile) {
+        // On mobile, we might need to pause and play again to enable sound
+        const wasPlaying = !video.paused
+        if (wasPlaying) {
+          await video.pause()
+        }
+        video.muted = !video.muted
+        setIsVideoMuted(!isVideoMuted)
+        if (wasPlaying) {
+          await video.play()
+        }
+      } else {
+        video.muted = !video.muted
+        setIsVideoMuted(!isVideoMuted)
+      }
+    } catch (error) {
+      console.warn("Failed to toggle mute:", error)
     }
+
     handleUserInteraction()
-  }, [isVideoMuted, handleUserInteraction])
+  }, [isVideoMuted, handleUserInteraction, isMobile])
 
   // Auto-slide functionality with refined behavior
   useEffect(() => {
@@ -296,7 +337,11 @@ const HeroSection = () => {
                   <div className="absolute -inset-1 sm:-inset-2 lg:-inset-3 bg-gradient-to-br from-gold-light/30 to-teal-light/30 blur-md sm:blur-lg lg:blur-xl opacity-50 rounded-lg sm:rounded-xl lg:rounded-2xl"></div>
 
                   {/* Main Video Container - Enhanced mobile support */}
-                  <div className="relative w-full h-full bg-black rounded-lg sm:rounded-xl overflow-hidden shadow-xl sm:shadow-2xl shadow-gold/20 border border-gold/10">
+                  <div
+                    className="relative w-full h-full bg-black rounded-lg sm:rounded-xl overflow-hidden shadow-xl sm:shadow-2xl shadow-gold/20 border border-gold/10"
+                    onMouseEnter={() => setIsVideoHovered(true)}
+                    onMouseLeave={() => setIsVideoHovered(false)}
+                  >
                     <video
                       ref={videoRef}
                       src={slide.video}
@@ -323,10 +368,10 @@ const HeroSection = () => {
                       aria-label={slide.description}
                     />
 
-                    {/* Play button overlay when video is not playing */}
+                    {/* Play button overlay when video is not playing - Only show when video is paused */}
                     {!isVideoPlaying && (
                       <div
-                        className="absolute inset-0 bg-black/30 flex items-center justify-center cursor-pointer"
+                        className="absolute inset-0 bg-black/30 flex items-center justify-center cursor-pointer z-20"
                         onClick={toggleVideoPlayback}
                       >
                         <div className="bg-black/70 backdrop-blur-md rounded-full p-4 sm:p-6 lg:p-8 hover:bg-black/80 transition-all duration-300 hover:scale-110">
@@ -335,33 +380,31 @@ const HeroSection = () => {
                       </div>
                     )}
 
-                    {/* Enhanced Video Controls */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <div className="flex items-center space-x-3 sm:space-x-4 lg:space-x-6 bg-black/70 backdrop-blur-md rounded-lg sm:rounded-xl px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 shadow-lg sm:shadow-xl border border-gold/20">
-                        <button
-                          onClick={toggleVideoPlayback}
-                          className="text-white hover:text-gold transition-all duration-200 p-2 sm:p-2.5 lg:p-3 rounded-full hover:bg-white/10 hover:scale-110 transform"
-                          aria-label={isVideoPlaying ? "Pause video" : "Play video"}
-                        >
-                          {isVideoPlaying ? (
+                    {/* Enhanced Video Controls - Only show on hover for desktop, always visible on mobile when playing */}
+                    {((isVideoHovered && !isMobile) || (isMobile && isVideoPlaying)) && isVideoPlaying && (
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 flex items-center justify-center z-10">
+                        <div className="flex items-center space-x-3 sm:space-x-4 lg:space-x-6 bg-black/70 backdrop-blur-md rounded-lg sm:rounded-xl px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 shadow-lg sm:shadow-xl border border-gold/20">
+                          <button
+                            onClick={toggleVideoPlayback}
+                            className="text-white hover:text-gold transition-all duration-200 p-2 sm:p-2.5 lg:p-3 rounded-full hover:bg-white/10 hover:scale-110 transform"
+                            aria-label="Pause video"
+                          >
                             <Pause size={20} className="sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
-                          ) : (
-                            <Play size={20} className="sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
-                          )}
-                        </button>
-                        <button
-                          onClick={toggleVideoMute}
-                          className="text-white hover:text-gold transition-all duration-200 p-2 sm:p-2.5 lg:p-3 rounded-full hover:bg-white/10 hover:scale-110 transform"
-                          aria-label={isVideoMuted ? "Unmute video" : "Mute video"}
-                        >
-                          {isVideoMuted ? (
-                            <VolumeX size={20} className="sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
-                          ) : (
-                            <Volume2 size={20} className="sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
-                          )}
-                        </button>
+                          </button>
+                          <button
+                            onClick={toggleVideoMute}
+                            className="text-white hover:text-gold transition-all duration-200 p-2 sm:p-2.5 lg:p-3 rounded-full hover:bg-white/10 hover:scale-110 transform"
+                            aria-label={isVideoMuted ? "Unmute video" : "Mute video"}
+                          >
+                            {isVideoMuted ? (
+                              <VolumeX size={20} className="sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
+                            ) : (
+                              <Volume2 size={20} className="sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
+                            )}
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                    )}
 
                     {/* Brand Overlay */}
                     <div className="absolute top-2 sm:top-4 lg:top-6 left-2 sm:left-4 lg:left-6 z-10 pointer-events-none">
@@ -393,7 +436,7 @@ const HeroSection = () => {
               </div>
             ) : (
               // Enhanced image slides
-              <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
+              <div className="container mx-auto px-8 sm:px-12 lg:px-16 xl:px-20 h-full">
                 <div className="flex flex-col lg:flex-row items-center justify-between h-full py-8 lg:py-16 gap-8 lg:gap-12">
                   {/* Left Content */}
                   <div className="flex-1 text-center lg:text-left space-y-4 sm:space-y-6 lg:space-y-8 max-w-xl lg:max-w-2xl order-2 lg:order-1">
@@ -405,20 +448,57 @@ const HeroSection = () => {
                         </span>
                       </div>
 
-                      {/* Arabic Slogan */}
+                      {/* Enhanced Arabic Slogan for Bread Slide */}
                       {slide.slogan && (
                         <div className="relative mb-8 animate-reveal-up" style={{ animationDelay: "0.3s" }}>
-                          <p
-                            className="text-gold-premium font-display font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-center tracking-wide leading-relaxed animate-text-glow"
-                            style={{ direction: "rtl", fontFamily: 'Georgia, "Times New Roman", serif' }}
-                          >
-                            {slide.slogan}
-                          </p>
-                          <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-16 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent animate-shimmer-gold"></div>
-                          <div
-                            className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent animate-shimmer-gold"
-                            style={{ animationDelay: "1s" }}
-                          ></div>
+                          {slide.theme === "bread" ? (
+                            // Special styling for bread slide
+                            <div className="text-center space-y-3">
+                              <div className="relative">
+                                <p className="text-gold-premium font-display font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl tracking-wider animate-text-glow">
+                                  GHAZAL
+                                </p>
+                                <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-20 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+                              </div>
+                              <p
+                                className="text-gold-premium font-display font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl tracking-wide leading-relaxed animate-text-glow"
+                                style={{ direction: "rtl", fontFamily: 'Georgia, "Times New Roman", serif' }}
+                              >
+                                وَٱلطَّعْمُ خَيَالٌ
+                              </p>
+                              {/* Enhanced decorative elements for bread theme */}
+                              <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent animate-shimmer-gold"></div>
+                              <div
+                                className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-40 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent animate-shimmer-gold"
+                                style={{ animationDelay: "1s" }}
+                              ></div>
+                              {/* Bread-themed decorative dots */}
+                              <div className="absolute top-1/2 -left-8 w-2 h-2 bg-gold/40 rounded-full animate-pulse"></div>
+                              <div
+                                className="absolute top-1/2 -right-8 w-2 h-2 bg-gold/40 rounded-full animate-pulse"
+                                style={{ animationDelay: "0.5s" }}
+                              ></div>
+                            </div>
+                          ) : (
+                            // Regular slogan styling for other slides
+                            slide.slogan
+                              .split("\n")
+                              .map((line, index) => (
+                                <p
+                                  key={index}
+                                  className="text-gold-premium font-display font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-center tracking-wide leading-relaxed animate-text-glow"
+                                  style={{
+                                    direction: line.includes("وَٱلطَّعْمُ") ? "rtl" : "ltr",
+                                    fontFamily: line.includes("وَٱلطَّعْمُ")
+                                      ? 'Georgia, "Times New Roman", serif'
+                                      : "inherit",
+                                    marginBottom: index === 0 ? "0.5rem" : "0",
+                                  }}
+                                >
+                                  {line}
+                                </p>
+                              ))
+                          )}
                         </div>
                       )}
 
@@ -471,8 +551,20 @@ const HeroSection = () => {
                   </div>
 
                   {/* Right Image */}
-                  <div className="flex-1 flex justify-center items-center relative order-1 lg:order-2 w-full max-w-md sm:max-w-lg lg:max-w-none">
-                    <div className="relative w-full h-48 sm:h-64 md:h-72 lg:h-80 xl:h-96 2xl:h-[28rem] flex items-center justify-center">
+                  <div
+                    className={`flex-1 flex justify-center items-center relative order-1 lg:order-2 w-full max-w-md sm:max-w-lg lg:max-w-none ${
+                      slides[index].id === 3 ? "lg:max-w-2xl xl:max-w-3xl" : ""
+                    }`}
+                  >
+                    <div
+                      className={`relative w-full flex items-center justify-center ${
+                        slides[index].id === 3
+                          ? "h-56 sm:h-72 md:h-80 lg:h-96 xl:h-[32rem] 2xl:h-[36rem]"
+                          : slides[index].id === 4
+                            ? "h-64 sm:h-80 md:h-96 lg:h-[28rem] xl:h-[32rem] 2xl:h-[36rem]"
+                            : "h-48 sm:h-64 md:h-72 lg:h-80 xl:h-96 2xl:h-[28rem]"
+                      }`}
+                    >
                       {!loadedSlides.has(index) && (
                         <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse rounded-lg"></div>
                       )}
@@ -481,8 +573,12 @@ const HeroSection = () => {
                           src={slide.image || "/placeholder.svg"}
                           alt={slide.title}
                           fill
-                          className={`object-contain drop-shadow-2xl transform hover:scale-105 transition-all duration-700 ${
+                          className={`drop-shadow-2xl transform hover:scale-105 transition-all duration-700 ${
                             loadedSlides.has(index) ? "opacity-100" : "opacity-0"
+                          } ${
+                            slides[index].id === 4
+                              ? "object-contain scale-125 sm:scale-110 lg:scale-100"
+                              : "object-contain"
                           }`}
                           priority={index === 0}
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -505,27 +601,35 @@ const HeroSection = () => {
         ))}
       </div>
 
-      {/* Navigation Arrows */}
+      {/* Enhanced Navigation Arrows - Fixed positioning to avoid text overlap */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 lg:left-8 top-1/2 transform -translate-y-1/2 glass-effect p-3 lg:p-4 rounded-full text-white hover:bg-white/20 transition-all duration-300 group z-10 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gold/50"
+        className="absolute left-2 sm:left-4 lg:left-6 xl:left-8 top-1/2 transform -translate-y-1/2 glass-effect p-2 sm:p-3 lg:p-4 rounded-full text-white hover:bg-white/20 transition-all duration-300 group z-30 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gold/50 shadow-lg"
         aria-label="Previous slide"
         disabled={isTransitioning}
+        style={{ marginLeft: "max(0.5rem, env(safe-area-inset-left))" }}
       >
-        <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6 group-hover:scale-110 transition-transform" />
+        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 group-hover:scale-110 transition-transform" />
       </button>
 
       <button
         onClick={nextSlide}
-        className="absolute right-4 lg:right-8 top-1/2 transform -translate-y-1/2 glass-effect p-3 lg:p-4 rounded-full text-white hover:bg-white/20 transition-all duration-300 group z-10 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gold/50"
+        className="absolute right-2 sm:right-4 lg:right-6 xl:right-8 top-1/2 transform -translate-y-1/2 glass-effect p-2 sm:p-3 lg:p-4 rounded-full text-white hover:bg-white/20 transition-all duration-300 group z-30 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gold/50 shadow-lg"
         aria-label="Next slide"
         disabled={isTransitioning}
+        style={{ marginRight: "max(0.5rem, env(safe-area-inset-right))" }}
       >
-        <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6 group-hover:scale-110 transition-transform" />
+        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 group-hover:scale-110 transition-transform" />
       </button>
 
-      {/* Enhanced Carousel Dots - Fixed positioning for mobile */}
-      <div className="absolute bottom-6 sm:bottom-8 md:bottom-12 left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3 z-10 bg-black/30 backdrop-blur-sm rounded-full px-3 py-2 sm:px-4 sm:py-3">
+      {/* Enhanced Carousel Dots - Better iPhone compatibility */}
+      <div
+        className="absolute left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3 z-10 bg-black/30 backdrop-blur-sm rounded-full px-3 py-2 sm:px-4 sm:py-3"
+        style={{
+          bottom: "max(1.5rem, env(safe-area-inset-bottom, 1.5rem))",
+          marginBottom: "env(safe-area-inset-bottom, 0px)",
+        }}
+      >
         {slides.map((_, index) => (
           <button
             key={index}
